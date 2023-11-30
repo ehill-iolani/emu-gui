@@ -20,7 +20,6 @@ ui <- shinyUI(fluidPage(
       actionButton("run", "Run EMU!")),
     mainPanel(
       plotlyOutput("results"))
-      #textOutput("results"))
   )
 ))
 
@@ -80,6 +79,8 @@ server <- function(input, output) {
 
     # Set working directory to results
     setwd("/home/results")
+
+    removeModal()
   })
 }
 
