@@ -3,7 +3,7 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 library(stringr)
-library(tidyr)
+#library(tidyr)
 library(plotly)
 
 # Define UI for application, create sidebar and body
