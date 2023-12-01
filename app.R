@@ -82,7 +82,7 @@ server <- function(input, output) {
     showModal(modalDialog("Running the EMU pipeline, please be patient...running EMU", footer = NULL))
 
     # Run EMU
-    system(paste("for i in *.fastq; do conda run -n emu emu abundance --keep-counts --output-unclassified --output-dir ../results --threads", input$threads, "$i; done"))
+    system(paste("for i in *.fastq; do conda run -n emu emu abundance --db /home/database --keep-counts --output-unclassified --output-dir ../results --threads", input$threads, "$i; done"))
 
     # Set working directory to results
     setwd("/home/results")
