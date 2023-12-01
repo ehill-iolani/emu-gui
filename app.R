@@ -68,7 +68,7 @@ server <- function(input, output) {
     setwd("/home/processing")
 
     # Filter reads by length and quality using nanofilt
-    system(paste("for i in barcode*; do NanoFilt -l", input$lowerlength, "--maxlength", input$upperlength, "-q", input$quality, "-t", input$threads, "-o", "${i}_filtered.fastq", "$i.fastq; done"))
+    system(paste("for i in barcode*; do conda run -n emu NanoFilt -l", input$lowerlength, "--maxlength", input$upperlength, "-q", input$quality, "-t", input$threads, "-o", "${i}_filtered.fastq", "$i.fastq; done"))
 
     # Remove the unfiltered fastq files
     system("rm *_unfiltered.fastq")
@@ -77,7 +77,7 @@ server <- function(input, output) {
     dir.create(file.path("/home", "results"))
 
     # Run EMU
-    system("for i in *.fastq; emu abundance --keep-counts --output-unclassified --output-dir ../results --threads 24 $i; done")
+    system("for i in *.fastq; conda run -n emu emu abundance --keep-counts --output-unclassified --output-dir ../results --threads 24 $i; done")
 
     # Set working directory to results
     setwd("/home/results")
