@@ -59,11 +59,13 @@ server <- function(input, output) {
 
     # Create processing directory and set working directory
     dir.create(file.path("/home", "processing"))
-    setwd("/home/processing")
 
     # Cat all the fastqs in a directory into one file and
     # write to processing directory
     system("for i in barcode*; do cat $i/*.fastq >> ../processing/${i}_unfiltered.fastq; done")
+
+    # Set working directory to processing
+    setwd("/home/processing")
 
     # Filter reads by length and quality using nanofilt
     system(paste("for i in barcode*; do NanoFilt -l", input$lowerlength, "-L", input$upperlength, "-q", input$quality, "-t", input$threads, "-o", "${i}_filtered.fastq", "$i.fastq; done"))
