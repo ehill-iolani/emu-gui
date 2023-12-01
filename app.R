@@ -68,7 +68,7 @@ server <- function(input, output) {
     setwd("/home/processing")
 
     # Filter reads by length and quality using nanofilt
-    system(paste("for i in barcode*; do NanoFilt -l", input$lowerlength, "-L", input$upperlength, "-q", input$quality, "-t", input$threads, "-o", "${i}_filtered.fastq", "$i.fastq; done"))
+    system(paste("for i in barcode*; do NanoFilt -l", input$lowerlength, "--maxlength", input$upperlength, "-q", input$quality, "-t", input$threads, "-o", "${i}_filtered.fastq", "$i.fastq; done"))
 
     # Remove the unfiltered fastq files
     system("rm *_unfiltered.fastq")
