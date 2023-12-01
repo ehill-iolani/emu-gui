@@ -3,7 +3,7 @@ FROM --platform=linux/amd64 rocker/shiny
 # My authorship
 LABEL maintainer="ehill@iolani.org"
 LABEL version="1.0.0"
-LABEL description="Emu GUI for Iolani School"
+LABEL description="EMU GUI for Iolani School"
 
 # Disable prompts during package installation
 ENV DEBIAN_FRONTEND noninteractive
@@ -24,8 +24,8 @@ RUN rm -r emu-gui
 # Miniconda installation
 RUN cd tmp
 RUN curl https://repo.anaconda.com/miniconda/Miniconda3-py310_23.3.1-0-Linux-x86_64.sh --output miniconda.sh
-RUN bash miniconda.sh -bu
-ENV PATH="/root/miniconda3/bin:$PATH"
+RUN bash miniconda.sh -bup /miniconda3
+ENV PATH="/miniconda3/bin:$PATH"
 RUN conda update -y conda
 
 # Setting up the emu file system
@@ -55,11 +55,7 @@ RUN conda init && \
 
 RUN echo "export EMU_DATABASE_DIR=/home/database" >> ~/.bashrc
 
-# Set working directory
+# Set working directory and permissions
 WORKDIR /home
-
-# Make /home/ writeable to all "users"
 RUN chmod -R 777 /home/
-
-# Make conda executable to all "users"
 RUN chmod -R 777 /miniconda3/bin/*
