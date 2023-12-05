@@ -1,5 +1,5 @@
 # emu-gui
-A shiny app for running the EMU pipeline through a GUI
+A shiny app for running the EMU pipeline through a GUI. This app also includes visualization tools for the EMU output.
 
 ## Installation
 Build the docker image with the following commands:
